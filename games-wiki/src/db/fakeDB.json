@@ -1,0 +1,91 @@
+{
+    "games": [
+        {
+            "id": 0,
+            "title": "Grand Theft Auto V",
+            "genres": [
+                "Shooter",
+                "Action",
+                "Adventure"
+            ],
+            "rating": 5,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lbd.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 1,
+            "title": "Hollow Knight",
+            "genres": [
+                "Metroidvania",
+                "Adventure",
+                "Indie"
+            ],
+            "rating": 4,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1rgi.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 2,
+            "title": "Destiny 2",
+            "genres": [
+                "RPG",
+                "Adventure",
+                "Shooter"
+            ],
+            "rating": 4.1,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co67qb.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 3,
+            "title": "Skyrim",
+            "genres": [
+                "Adventure",
+                "RPG"
+            ],
+            "rating": 4.5,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1tnw.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 4,
+            "title": "Cyberpunk 2077",
+            "genres": ["RPG", "Adventure", "Shooter"],
+            "rating": 5,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co4hk8.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 5,
+            "title": "League of Legends",
+            "genres": ["MOBA", "Strategy"],
+            "rating": 2.3,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co49wj.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 6,
+            "title": "Red Dead Redemption 2",
+            "genres": ["Adventure", "Action", "Action"],
+            "rating": 5,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1q1f.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 7,
+            "title": "Persona 5 Royal",
+            "genres": ["JRPG", "Adventure", "Turn Based"],
+            "rating": 4.1,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1nic.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        },
+        {
+            "id": 8,
+            "title": "Yakuza 0",
+            "genres": ["Adventure", "Brawler"],
+            "rating": 5,
+            "imageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co252x.jpg",
+            "plot": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec massa turpis. Sed sit amet blandit dolor. Integer maximus ac ex sit amet pretium. Aenean eu faucibus mi. Vestibulum ullamcorper nibh a scelerisque suscipit. Nunc pellentesque eros porta, mollis felis sed, tempus lectus. Nulla tempus sapien non convallis viverra. Quisque vel turpis ut tellus feugiat malesuada. Proin imperdiet eget tellus sit amet vestibulum. Fusce congue, mauris sit amet imperdiet consequat, felis ex bibendum diam, consequat finibus augue est nec sem. Pellentesque facilisis quam nec lobortis rutrum. Quisque efficitur lobortis consectetur. Donec diam orci, sagittis vitae semper non, sodales at felis. Cras faucibus felis vitae dui condimentum eleifend. Aenean ligula est, hendrerit ac massa id, pulvinar dictum tortor. Curabitur elementum diam eros, ac lacinia eros posuere vel."
+        }
+    ]
+}
