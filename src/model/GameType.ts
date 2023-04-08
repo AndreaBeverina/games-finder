@@ -1,9 +1,10 @@
 
 export type GameType = {
-    id: number,
+    genres : string[],
+    id : string,
+    rating : string,
+    release_date : string,
+    summary : string,
+    team : string[],
     title: string,
-    genres: string[];
-    rating: number;
-    imageUrl: string;
-    plot: string;
 }

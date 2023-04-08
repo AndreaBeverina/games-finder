@@ -9,6 +9,7 @@ const theme = createTheme();
 
 export const loader = async ({ params }) => {
     const game = await getGame(params.id);
+    console.log(game)
     return { game };
 }
 

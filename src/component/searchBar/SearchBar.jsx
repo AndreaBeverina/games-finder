@@ -1,23 +1,23 @@
-import { Input, Button, Center, VStack, HStack, Stack, Skeleton, Heading, Text, SkeletonText, Box, SimpleGrid } from "@chakra-ui/react"
+import { Box, Button, Center, HStack, Image, Input, Skeleton, SkeletonText, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { postVideogame } from "../../chiamate/chiamate";
 import { ResultDisplay } from "../resultDisplay/ResultDisplay";
-import { GameType } from "../../model/GameType";
+import logoImg from  "../../img/logo.png";
 
 export const SearchBar = () => {
 
   const [gameTitle, setGameTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState([] as GameType[]);
+  const [result, setResult] = useState();
 
-  const handleChangeUrl = (e: any) => {
+  const handleChangeUrl = (e) => {
     setGameTitle(e.target.value);
   }
 
   const handleClickSubmit = async () => {
     setIsLoading(true);
     try {
-      const data = await postVideogame("videogame");
+      const data = await postVideogame(gameTitle);
       setResult(data);
       setIsLoading(false);
     }
@@ -27,7 +27,7 @@ export const SearchBar = () => {
     }
   };
 
-  const handleKeyPress = async (event: any) => {
+  const handleKeyPress = async (event) => {
     if (event.key == "Enter" && gameTitle.length > 0) {
       handleClickSubmit();
     }
@@ -35,9 +35,9 @@ export const SearchBar = () => {
 
   return (
     <>
-      <Center marginTop="7rem" >
+      <Center marginTop="2rem" >
         <VStack width="100%" fontFamily="Futura PT">
-          <Text mb="2rem"  fontWeight="500" fontSize="3rem">Nome del sito</Text>
+          <Image src={logoImg} mb="2rem"/>
           <VStack width={{sm:"70%", md: "40%"}} h="30%">
             <Input
             fontSize="1.5rem"
