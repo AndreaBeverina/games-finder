@@ -10,7 +10,6 @@ const theme = createTheme();
 
 export const loader = async ({ params }) => {
     const game = await getGame(params.id);
-    console.log(game)
     return { game };
 }
 
@@ -24,10 +23,7 @@ export const DetailsPage = () => {
     const ref = useRef(null);
 
     const handleClickSubmit = async (e) => {
-
         setIsLoading(true);
-
-
         try {
             const data = await getSuggestions(e.target.value);
             setResult(data);

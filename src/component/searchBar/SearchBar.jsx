@@ -1,6 +1,6 @@
-import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { postVideogame } from "../../chiamate/chiamate";
+import { postVideogame, postVideogameByGenre } from "../../chiamate/chiamate";
 import genresList from "../../db/genres.json";
 import logoImg from "../../img/logo.png";
 import { ResultDisplay } from "../resultDisplay/ResultDisplay";
@@ -11,8 +11,12 @@ export const SearchBar = () => {
   const [gameTitle, setGameTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState();
-  const [popup, setPopup] = useState(false);
-  const [chosenGenres, setChosenGenres] = useState([])
+  const [popupGenre, setPopupGenre] = useState(false);
+  const [chosenGenres, setChosenGenres] = useState([]);
+
+  const [popupRating, setPopupRating] = useState(false);
+  const [chosenRatings, setChosenRatings] = useState([]);
+
 
   const handleChangeUrl = (e) => {
     setGameTitle(e.target.value);
@@ -29,10 +33,14 @@ export const SearchBar = () => {
       console.log(error);
       setIsLoading(false);
     }
-  };
+  }
 
-  const handleClickPopup = () => {
-    setPopup(!popup);
+  const handleClickPopupGenre = () => {
+    setPopupGenre(!popupGenre);
+  }
+
+  const handleClickPopupRating = () => {
+    setPopupRating(!popupRating);
   }
 
   const handleClickClear = () => {
@@ -44,14 +52,13 @@ export const SearchBar = () => {
     const genre = event.target.value;
 
     if (list.includes(genre)) {
-
       list.pop(genre);
     }
     else {
       list.push(genre);
     }
     setChosenGenres(list);
-    console.log("Lista: " + list);
+    console.log(list)
   }
 
   const handleKeyPress = async (event) => {
@@ -60,26 +67,41 @@ export const SearchBar = () => {
     }
   }
 
+  const handleSubmitGenres = async () => {
+    setIsLoading(true);
+    setPopupGenre(false);
+    setGameTitle("");
+    try {
+      const data = await postVideogameByGenre(chosenGenres);
+      setResult(data);
+      setIsLoading(false);
+    }
+    catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
   return (
     <>
       <Center
-        className={`${popup ? "show" : "hide"}`}
+        className={`${popupGenre ? "show" : "hide"}`}
         marginTop="-2rem"
         width="100%"
         height="100vh"
         position="absolute"
         zIndex="10"
-        >
+      >
         <SimpleGrid
           columns={1}
           width="50%"
           height="auto"
-          backgroundColor="black"
+          backgroundColor="rgba(0, 0, 0, 0.9)"
           border="2px solid #ff9923"
           borderRadius="1rem">
 
           <Box textAlign="right" p="1rem">
-            <Button onClick={handleClickPopup} variant="main">X</Button>
+            <Button onClick={handleClickPopupGenre} variant="clearBtn">X</Button>
           </Box>
 
           <Box p="1rem">
@@ -98,7 +120,62 @@ export const SearchBar = () => {
           </Box>
 
           <Box textAlign="center" p="1rem">
-            <Button variant="main">Invia</Button>
+            <Button variant="main" onClick={handleSubmitGenres}>Invia</Button>
+          </Box>
+
+        </SimpleGrid>
+      </Center>
+
+      <Center
+        className={`${popupRating ? "show" : "hide"}`}
+        marginTop="-2rem"
+        width="100%"
+        height="100vh"
+        position="absolute"
+        zIndex="10"
+      >
+        <SimpleGrid
+          columns={1}
+          width="50%"
+          height="auto"
+          backgroundColor="rgba(0, 0, 0, 0.9)"
+          border="2px solid #ff9923"
+          borderRadius="1rem">
+
+          <Box textAlign="right" p="1rem">
+            <Button onClick={handleClickPopupRating} variant="clearBtn">X</Button>
+          </Box>
+
+          <Box p="1rem">
+            <Slider defaultValue={2.5} min={0} max={5} step={0.5}>
+              <SliderMark value={0} mt="0.5rem">
+                0
+              </SliderMark>
+              <SliderMark value={1} m="0.5rem 0 0 0.4rem">
+                1
+              </SliderMark>
+              <SliderMark value={2} m="0.5rem 0 0 0.4rem">
+                2
+              </SliderMark>
+              <SliderMark value={3} m="0.5rem 0 0 0.4rem">
+                3
+              </SliderMark>
+              <SliderMark value={4} m="0.5rem 0 0 0.4rem">
+                4
+              </SliderMark>
+              <SliderMark value={5} mt="0.5rem">
+                5
+              </SliderMark>
+              <SliderTrack bg='blue'>
+                <Box position='relative' right={10} />
+                <SliderFilledTrack bg='yellow' />
+              </SliderTrack>
+              <SliderThumb boxSize={5} />
+            </Slider>
+          </Box>
+
+          <Box textAlign="center" p="1rem">
+            <Button variant="main" >Invia</Button>
           </Box>
 
         </SimpleGrid>
@@ -134,8 +211,15 @@ export const SearchBar = () => {
               </Button>
 
               <Button
-                onClick={handleClickPopup}
-                variant="filterBtn"
+                onClick={handleClickPopupRating}
+                variant="ratingBtn"
+              >
+                Ricerca per valutazione
+              </Button>
+
+              <Button
+                onClick={handleClickPopupGenre}
+                variant="genreBtn"
               >
                 Ricerca per genere
               </Button>
@@ -158,7 +242,9 @@ export const SearchBar = () => {
           <Box width="100%">
             {!isLoading && result && (
               <>
-                <ResultDisplay gameList={result} />
+                {result.length == 0
+                  ? <Center mt="2rem" fontSize="2rem"> Non è stato trovato alcun videogioco. Prova a cambiare i parametri di ricerca! </Center>
+                  : <ResultDisplay gameList={result} />}
               </>
             )}
             {

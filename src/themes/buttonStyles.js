@@ -35,7 +35,7 @@ export const ButtonStyles = {
           color: "red",
         }
       }),
-      filterBtn: (props) => ({
+      genreBtn: (props) => ({
         bg: "#f30c7c",
         _hover: {
           bg: "white",
@@ -44,6 +44,17 @@ export const ButtonStyles = {
         _active: {
           bg: "#dfdfdf",
           color: "#f30c7c",
+        }
+      }),
+      ratingBtn: (props) => ({
+        bg: "#b400df",
+        _hover: {
+          bg: "white",
+          color: "#b400df",
+        },
+        _active: {
+          bg: "#dfdfdf",
+          color: "#b400df",
         }
       })
 

@@ -16,7 +16,13 @@ export const postVideogame = async (titolo: string) => {
 }
 
 export const postVideogameByGenre = async (genresList : string[]) => {
-    //TODO:
+    const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-genres'
+    const data = { "genres" : genresList};
+
+    const response = await axios.post(apiUrl, data);
+    const gameList : GameListType = response.data;
+    return gameList.games;
+
 }
 
 export const getGame = async (id: string) => {

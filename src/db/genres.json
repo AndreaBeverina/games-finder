@@ -9,6 +9,11 @@
         "Puzzle",
         "Brawler",
         "Turn Based Strategy",
-        "Arcade"
+        "Arcade",
+        "Visual Novel",
+        "Strategy",
+        "Tactical",
+        "Point-and-Click",
+        "Music"
     ]
 }
