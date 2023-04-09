@@ -1,6 +1,6 @@
 import { Box, Center, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import logoImg from  "../../img/logo.png";
+import missingArtwork from "../../img/missingArtwork3.png";
 
 export const ResultDisplay = (props) => {
 
@@ -19,7 +19,7 @@ export const ResultDisplay = (props) => {
                       h="15rem"
                       w="auto"
                       maxW="12rem"
-                      src={logoImg}
+                      src={missingArtwork}
                       alt=""
                       transitionDuration=".3s"
                       _hover={{

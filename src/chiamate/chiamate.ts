@@ -7,9 +7,6 @@ import { GameListType } from "../model/GameListType";
 
 
 export const postVideogame = async (titolo: string) => {
-    //await timeout(1000);
-    //const gameList: GameType[] = fakeDB.games;
-
     const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/games-wiki-resource'
     const data = { "title": titolo };
 
@@ -18,13 +15,11 @@ export const postVideogame = async (titolo: string) => {
     return gameList.games;
 }
 
-export const getGame = async (id: string) => {
-    //await timeout(1000);
-    /*const gameList: GameType[] = fakeDB.games;
-    let game: GameType = gameList[id];
+export const postVideogameByGenre = async (genresList : string[]) => {
+    //TODO:
+}
 
-    return game;
-    */
+export const getGame = async (id: string) => {
     const apiUrl = "https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-id"
     const data = {"id" : id}
 

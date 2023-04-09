@@ -1,14 +1,18 @@
-import { Box, Button, Center, HStack, Image, Input, Skeleton, SkeletonText, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { postVideogame } from "../../chiamate/chiamate";
+import genresList from "../../db/genres.json";
+import logoImg from "../../img/logo.png";
 import { ResultDisplay } from "../resultDisplay/ResultDisplay";
-import logoImg from  "../../img/logo.png";
+import "./SearchBar.css";
 
 export const SearchBar = () => {
 
   const [gameTitle, setGameTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState();
+  const [popup, setPopup] = useState(false);
+  const [chosenGenres, setChosenGenres] = useState([])
 
   const handleChangeUrl = (e) => {
     setGameTitle(e.target.value);
@@ -27,6 +31,29 @@ export const SearchBar = () => {
     }
   };
 
+  const handleClickPopup = () => {
+    setPopup(!popup);
+  }
+
+  const handleClickClear = () => {
+    setGameTitle("");
+  }
+
+  const handleChangeGenre = (event) => {
+    const list = [...chosenGenres];
+    const genre = event.target.value;
+
+    if (list.includes(genre)) {
+
+      list.pop(genre);
+    }
+    else {
+      list.push(genre);
+    }
+    setChosenGenres(list);
+    console.log("Lista: " + list);
+  }
+
   const handleKeyPress = async (event) => {
     if (event.key == "Enter" && gameTitle.length > 0) {
       handleClickSubmit();
@@ -35,12 +62,56 @@ export const SearchBar = () => {
 
   return (
     <>
-      <Center marginTop="2rem" >
+      <Center
+        className={`${popup ? "show" : "hide"}`}
+        marginTop="-2rem"
+        width="100%"
+        height="100vh"
+        position="absolute"
+        zIndex="10"
+        >
+        <SimpleGrid
+          columns={1}
+          width="50%"
+          height="auto"
+          backgroundColor="black"
+          border="2px solid #ff9923"
+          borderRadius="1rem">
+
+          <Box textAlign="right" p="1rem">
+            <Button onClick={handleClickPopup} variant="main">X</Button>
+          </Box>
+
+          <Box p="1rem">
+            <SimpleGrid columns={5}>
+              {genresList.genresList.map((genre, index) => {
+                return (
+                  <Center key={index}>
+                    <Checkbox onChange={handleChangeGenre} value={genre}
+                    >
+                      {genre}
+                    </Checkbox>
+                  </Center>
+                )
+              })}
+            </SimpleGrid>
+          </Box>
+
+          <Box textAlign="center" p="1rem">
+            <Button variant="main">Invia</Button>
+          </Box>
+
+        </SimpleGrid>
+      </Center>
+
+
+
+      <Center marginTop="2rem">
         <VStack width="100%" fontFamily="Futura PT">
-          <Image src={logoImg} mb="2rem"/>
-          <VStack width={{sm:"70%", md: "40%"}} h="30%">
+          <Image src={logoImg} mb="2rem" />
+          <VStack width={{ sm: "70%", md: "40%" }} h="30%">
             <Input
-            fontSize="1.5rem"
+              fontSize="1.5rem"
               onChange={(e) => handleChangeUrl(e)}
               onKeyDown={handleKeyPress}
               type="text"
@@ -53,21 +124,34 @@ export const SearchBar = () => {
               }}
             />
 
-            <Button
-              isDisabled={gameTitle === "" ? true : false}
-              onClick={handleClickSubmit}
-              bg="#ff9923"
-              _hover={{
-                bg: "white",
-                color: "#ff9923"
-              }}
-              _active={{
-                bg: "#dfdfdf",
-                color: "#ff9923"
-              }}
-            >
-              Invia
-            </Button>
+            <HStack>
+              <Button
+                isDisabled={gameTitle === "" ? true : false}
+                onClick={handleClickSubmit}
+                variant="main"
+              >
+                Cerca
+              </Button>
+
+              <Button
+                onClick={handleClickPopup}
+                variant="filterBtn"
+              >
+                Ricerca per genere
+              </Button>
+
+              <Button
+                isDisabled={gameTitle === "" ? true : false}
+                onClick={handleClickClear}
+                variant="clearBtn"
+              >
+                Cancella ricerca
+              </Button>
+            </HStack>
+
+
+
+
           </VStack>
 
 
@@ -93,11 +177,11 @@ export const SearchBar = () => {
                     <Skeleton h="15rem" w="11.2rem" />
                     <SkeletonText noOfLines={1} skeletonHeight="1rem" w="11.2rem" />
                   </VStack>
-                  <VStack display={{ sm: "none", md: "flex"}}>
+                  <VStack display={{ sm: "none", md: "flex" }}>
                     <Skeleton h="15rem" w="11.2rem" />
                     <SkeletonText noOfLines={1} skeletonHeight="1rem" w="11.2rem" />
                   </VStack>
-                  <VStack display={{ sm: "none", md: "none", lg:"flex"}}>
+                  <VStack display={{ sm: "none", md: "none", lg: "flex" }}>
                     <Skeleton h="15rem" w="11.2rem" />
                     <SkeletonText noOfLines={1} skeletonHeight="1rem" w="11.2rem" />
                   </VStack>

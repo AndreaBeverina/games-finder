@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import { getGame, getSuggestions } from "../../chiamate/chiamate";
 import { useRef, useState } from "react";
 import { Suggestions } from "../suggestions/Suggestion";
+import missingArtwork from "../../img/missingArtwork3.png"
 
 const theme = createTheme();
 
@@ -17,6 +18,8 @@ export const loader = async ({ params }) => {
 export const DetailsPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState();
+
+    const { game } = useLoaderData();
 
     const ref = useRef(null);
 
@@ -37,15 +40,13 @@ export const DetailsPage = () => {
         }
     }
 
-    const { game } = useLoaderData();
-
     return (
         <>
             <Center mt="5rem">
                 <VStack spacing="2rem" fontFamily="Futura PT">
                     <Card direction="row">
                         <Image
-                            src={game.imageUrl}
+                            src={missingArtwork}
                             objectFit='contain'
                             minH="20rem"
                             maxW="auto"
@@ -73,14 +74,14 @@ export const DetailsPage = () => {
 
                                 <Text as="b" fontSize="1.6rem" color="#ff9f00">Trama</Text>
                                 <br />
-                                <Text pb="1rem" fontSize="1.2rem">{game.plot}</Text>
+                                <Text pb="1rem" fontSize="1.2rem">{game.summary}</Text>
 
                                 <Text fontSize="1.6rem" as="b" color="#ff9f00" >Valutazione</Text>
                                 <Box>
                                     <ThemeProvider theme={theme}>
                                         <Rating
                                             value={game.rating}
-                                            precision={0.1}
+                                            precision={0.2}
                                             max={5}
                                             readOnly
                                             sx={{
