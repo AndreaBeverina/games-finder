@@ -22,7 +22,7 @@ const baseStyle = definePartsStyle({
   },
 
   container: {
-    margin: "1rem",
+    margin: "0.5rem",
     padding: "5px 15px 5px 10px",
     border: "2px solid transparent",
     borderRadius: "10px",

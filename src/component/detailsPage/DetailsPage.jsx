@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardBody, Center, HStack, Heading, Image, Text, VStack, Stack, Skeleton, Input, SkeletonText } from "@chakra-ui/react";
 import { Rating, ThemeProvider, createTheme } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
-import { getGame, getSuggestions } from "../../chiamate/chiamate";
+import { postGameById, getSuggestions } from "../../chiamate/chiamate";
 import { useRef, useState } from "react";
 import { Suggestions } from "../suggestions/Suggestion";
 import missingArtwork from "../../img/missingArtwork3.png"
@@ -9,7 +9,7 @@ import missingArtwork from "../../img/missingArtwork3.png"
 const theme = createTheme();
 
 export const loader = async ({ params }) => {
-    const game = await getGame(params.id);
+    const game = await postGameById(params.id);
     return { game };
 }
 

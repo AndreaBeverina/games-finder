@@ -26,6 +26,7 @@ export const ButtonStyles = {
       }),
       clearBtn: (props) => ({
         bg: "red",
+        padding:"0 2rem",
         _hover: {
           bg: "white",
           color: "red",

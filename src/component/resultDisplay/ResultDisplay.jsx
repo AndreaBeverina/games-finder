@@ -6,7 +6,6 @@ export const ResultDisplay = (props) => {
 
   const gameList = props.gameList;
 
-  console.log (gameList)
   return (
     <Center mt="3rem">
       <SimpleGrid columns={{sm: 3, md: 4, lg: 5}} spacingX="1.5rem" spacingY="2.5rem" mb="2rem">

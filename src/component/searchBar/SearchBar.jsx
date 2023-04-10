@@ -1,21 +1,28 @@
-import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { postVideogame, postVideogameByGenre } from "../../chiamate/chiamate";
+import { postSearchByTitle, postSearchByGenre, postSearchByRating } from "../../chiamate/chiamate";
 import genresList from "../../db/genres.json";
 import logoImg from "../../img/logo.png";
 import { ResultDisplay } from "../resultDisplay/ResultDisplay";
-import "./SearchBar.css";
 
 export const SearchBar = () => {
 
-  const [gameTitle, setGameTitle] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState();
+
+  const [popupTitle, setPopupTitle] = useState(true);
+  const [gameTitle, setGameTitle] = useState("");
+
   const [popupGenre, setPopupGenre] = useState(false);
   const [chosenGenres, setChosenGenres] = useState([]);
 
   const [popupRating, setPopupRating] = useState(false);
   const [chosenRatings, setChosenRatings] = useState([]);
+
+  const [sliderMinValue, setSliderMinValue] = useState(0);
+  const [sliderMaxValue, setSliderMaxValue] = useState(5);
+
 
 
   const handleChangeUrl = (e) => {
@@ -25,7 +32,7 @@ export const SearchBar = () => {
   const handleClickSubmit = async () => {
     setIsLoading(true);
     try {
-      const data = await postVideogame(gameTitle);
+      const data = await postSearchByTitle(gameTitle);
       setResult(data);
       setIsLoading(false);
     }
@@ -35,12 +42,22 @@ export const SearchBar = () => {
     }
   }
 
+  const handleClickPopupTitle = () => {
+    setPopupTitle(true)
+    setPopupGenre(false);
+    setPopupRating(false);
+  }
+
   const handleClickPopupGenre = () => {
-    setPopupGenre(!popupGenre);
+    setPopupTitle(false)
+    setPopupGenre(true);
+    setPopupRating(false);
   }
 
   const handleClickPopupRating = () => {
-    setPopupRating(!popupRating);
+    setPopupTitle(false)
+    setPopupGenre(false);
+    setPopupRating(true);
   }
 
   const handleClickClear = () => {
@@ -69,10 +86,26 @@ export const SearchBar = () => {
 
   const handleSubmitGenres = async () => {
     setIsLoading(true);
-    setPopupGenre(false);
     setGameTitle("");
     try {
-      const data = await postVideogameByGenre(chosenGenres);
+      const data = await postSearchByGenre(chosenGenres);
+      setResult(data);
+      setIsLoading(false);
+    }
+    catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
+  const handleSubmitRatings = async () => {
+    setIsLoading(true);
+    setGameTitle("");
+    try {
+      const ratings = [];
+      ratings.push(sliderMinValue)
+      ratings.push(sliderMaxValue)
+      const data = await postSearchByRating(ratings);
       setResult(data);
       setIsLoading(false);
     }
@@ -84,130 +117,193 @@ export const SearchBar = () => {
 
   return (
     <>
-      <Center
-        className={`${popupGenre ? "show" : "hide"}`}
-        marginTop="-2rem"
-        width="100%"
-        height="100vh"
-        position="absolute"
-        zIndex="10"
-      >
-        <SimpleGrid
-          columns={1}
-          width="50%"
-          height="auto"
-          backgroundColor="rgba(0, 0, 0, 0.9)"
-          border="2px solid #ff9923"
-          borderRadius="1rem">
-
-          <Box textAlign="right" p="1rem">
-            <Button onClick={handleClickPopupGenre} variant="clearBtn">X</Button>
-          </Box>
-
-          <Box p="1rem">
-            <SimpleGrid columns={5}>
-              {genresList.genresList.map((genre, index) => {
-                return (
-                  <Center key={index}>
-                    <Checkbox onChange={handleChangeGenre} value={genre}
-                    >
-                      {genre}
-                    </Checkbox>
-                  </Center>
-                )
-              })}
-            </SimpleGrid>
-          </Box>
-
-          <Box textAlign="center" p="1rem">
-            <Button variant="main" onClick={handleSubmitGenres}>Invia</Button>
-          </Box>
-
-        </SimpleGrid>
-      </Center>
-
-      <Center
-        className={`${popupRating ? "show" : "hide"}`}
-        marginTop="-2rem"
-        width="100%"
-        height="100vh"
-        position="absolute"
-        zIndex="10"
-      >
-        <SimpleGrid
-          columns={1}
-          width="50%"
-          height="auto"
-          backgroundColor="rgba(0, 0, 0, 0.9)"
-          border="2px solid #ff9923"
-          borderRadius="1rem">
-
-          <Box textAlign="right" p="1rem">
-            <Button onClick={handleClickPopupRating} variant="clearBtn">X</Button>
-          </Box>
-
-          <Box p="1rem">
-            <Slider defaultValue={2.5} min={0} max={5} step={0.5}>
-              <SliderMark value={0} mt="0.5rem">
-                0
-              </SliderMark>
-              <SliderMark value={1} m="0.5rem 0 0 0.4rem">
-                1
-              </SliderMark>
-              <SliderMark value={2} m="0.5rem 0 0 0.4rem">
-                2
-              </SliderMark>
-              <SliderMark value={3} m="0.5rem 0 0 0.4rem">
-                3
-              </SliderMark>
-              <SliderMark value={4} m="0.5rem 0 0 0.4rem">
-                4
-              </SliderMark>
-              <SliderMark value={5} mt="0.5rem">
-                5
-              </SliderMark>
-              <SliderTrack bg='blue'>
-                <Box position='relative' right={10} />
-                <SliderFilledTrack bg='yellow' />
-              </SliderTrack>
-              <SliderThumb boxSize={5} />
-            </Slider>
-          </Box>
-
-          <Box textAlign="center" p="1rem">
-            <Button variant="main" >Invia</Button>
-          </Box>
-
-        </SimpleGrid>
-      </Center>
-
-
-
       <Center marginTop="2rem">
         <VStack width="100%" fontFamily="Futura PT">
           <Image src={logoImg} mb="2rem" />
-          <VStack width={{ sm: "70%", md: "40%" }} h="30%">
-            <Input
-              fontSize="1.5rem"
-              onChange={(e) => handleChangeUrl(e)}
-              onKeyDown={handleKeyPress}
-              type="text"
-              borderColor="#ff9923"
-              rounded="lg"
-              placeholder="Inserisci il titolo di un videogioco"
-              value={gameTitle}
-              _focus={{
-                borderColor: "white",
-              }}
-            />
+          <VStack width={{ sm: "70%", md: "50%", lg: "60%" }} h="30%">
+
+            <Center
+              display={`${popupTitle ? "flex" : "none"}`}
+              width="100%"
+              mb="1rem"
+            >
+              <HStack spacing="1rem">
+                <Input
+                  minWidth="35rem"
+                  fontSize="1.5rem"
+                  onChange={(e) => handleChangeUrl(e)}
+                  onKeyDown={handleKeyPress}
+                  type="text"
+                  borderColor="#ff9923"
+                  rounded="lg"
+                  placeholder="Inserisci il titolo di un videogioco"
+                  value={gameTitle}
+                  _focus={{
+                    borderColor: "white",
+                  }}
+                />
+                <Button
+                  isDisabled={gameTitle === "" ? true : false}
+                  onClick={handleClickSubmit}
+                  variant="main"
+                >
+                  Cerca
+                </Button>
+                <Button
+                  isDisabled={gameTitle === "" ? true : false}
+                  onClick={handleClickClear}
+                  variant="clearBtn"
+                >
+                  Cancella ricerca
+                </Button>
+              </HStack>
+            </Center>
+
+            <Center
+              display={`${popupRating ? "flex" : "none"}`}
+            >
+              <SimpleGrid
+                columns={1}
+                height="auto"
+                backgroundColor="transparent"
+                border="2px solid #b400df"
+                borderRadius="1rem"
+                mb="1rem">
+
+                <VStack>
+
+                  <HStack>
+                    <Box width="15rem">
+                      <Text px="2rem" fontSize="1.3rem">Rating minimo: {sliderMinValue} </Text>
+                    </Box>
+
+                    <Box p="1rem 2rem"
+                      w="20rem"
+                      maxW="20rem">
+                      <Slider defaultValue={0} min={0} max={5} step={0.5} onChange={(val) => setSliderMinValue(val)}>
+                        <SliderMark value={0} mt="0.5rem">
+                          0
+                        </SliderMark>
+                        <SliderMark value={1} mt="0.5rem">
+                          1
+                        </SliderMark>
+                        <SliderMark value={2} mt="0.5rem">
+                          2
+                        </SliderMark>
+                        <SliderMark value={3} mt="0.5rem">
+                          3
+                        </SliderMark>
+                        <SliderMark value={4} mt="0.5rem">
+                          4
+                        </SliderMark>
+                        <SliderMark value={5} mt="0.5rem">
+                          5
+                        </SliderMark>
+                        <SliderTrack bg='black'>
+                          <Box position='relative' right={10} />
+                          <SliderFilledTrack bg='#ff9923' />
+                        </SliderTrack>
+                        <SliderThumb boxSize={5} />
+                      </Slider>
+                    </Box>
+                  </HStack>
+
+                  <HStack>
+                    <Box width="15rem">
+                      <Text px="2rem" fontSize="1.3rem">Rating massimo: {sliderMaxValue} </Text>
+                    </Box>
+
+                    <Box p="1rem 2rem"
+                      w="20rem"
+                      maxW="20rem">
+                      <Slider defaultValue={5} min={0} max={5} step={0.5} onChange={(val) => setSliderMaxValue(val)}>
+                        <SliderMark value={0} mt="0.5rem">
+                          0
+                        </SliderMark>
+                        <SliderMark value={1} mt="0.5rem">
+                          1
+                        </SliderMark>
+                        <SliderMark value={2} mt="0.5rem">
+                          2
+                        </SliderMark>
+                        <SliderMark value={3} mt="0.5rem">
+                          3
+                        </SliderMark>
+                        <SliderMark value={4} mt="0.5rem">
+                          4
+                        </SliderMark>
+                        <SliderMark value={5} mt="0.5rem">
+                          5
+                        </SliderMark>
+                        <SliderTrack bg='black'>
+                          <Box position='relative' right={10} />
+                          <SliderFilledTrack bg='#ff9923' />
+                        </SliderTrack>
+                        <SliderThumb boxSize={5} />
+                      </Slider>
+                    </Box>
+                  </HStack>
+
+                </VStack>
+
+
+                <Box textAlign="center" p="1rem">
+                  <Button 
+                  variant="main" 
+                  onClick={handleSubmitRatings}
+                  isDisabled={ (sliderMinValue>sliderMaxValue) ? true : false}>
+                    Cerca
+                    </Button>
+                </Box>
+
+              </SimpleGrid>
+            </Center>
+
+            <Center
+              display={`${popupGenre ? "flex" : "none"}`}
+              minW="30rem"
+            >
+              <SimpleGrid
+                columns={1}
+                height="auto"
+                backgroundColor="transparent"
+                border="2px solid #f30c7c"
+                borderRadius="1rem"
+                mb="1rem">
+
+                <Box p="1rem">
+                  <SimpleGrid columns={6}>
+                    {genresList.genresList.map((genre, index) => {
+                      return (
+                        <Center key={index}>
+                          <Checkbox onChange={handleChangeGenre} value={genre}
+                          >
+                            {genre}
+                          </Checkbox>
+                        </Center>
+                      )
+                    })}
+                  </SimpleGrid>
+                </Box>
+
+                <Box textAlign="center" p="0.5rem 1rem 1rem">
+                  <Button
+                    variant="main"
+                    onClick={handleSubmitGenres}>
+                    Cerca
+                  </Button>
+                </Box>
+
+              </SimpleGrid>
+            </Center>
+
 
             <HStack>
               <Button
-                isDisabled={gameTitle === "" ? true : false}
-                onClick={handleClickSubmit}
+                onClick={handleClickPopupTitle}
                 variant="main"
               >
-                Cerca
+                Ricerca per titolo
               </Button>
 
               <Button
@@ -222,14 +318,6 @@ export const SearchBar = () => {
                 variant="genreBtn"
               >
                 Ricerca per genere
-              </Button>
-
-              <Button
-                isDisabled={gameTitle === "" ? true : false}
-                onClick={handleClickClear}
-                variant="clearBtn"
-              >
-                Cancella ricerca
               </Button>
             </HStack>
 

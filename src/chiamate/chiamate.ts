@@ -6,7 +6,7 @@ import { GameListType } from "../model/GameListType";
 
 
 
-export const postVideogame = async (titolo: string) => {
+export const postSearchByTitle = async (titolo: string) => {
     const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/games-wiki-resource'
     const data = { "title": titolo };
 
@@ -15,7 +15,7 @@ export const postVideogame = async (titolo: string) => {
     return gameList.games;
 }
 
-export const postVideogameByGenre = async (genresList : string[]) => {
+export const postSearchByGenre = async (genresList : string[]) => {
     const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-genres'
     const data = { "genres" : genresList};
 
@@ -25,7 +25,17 @@ export const postVideogameByGenre = async (genresList : string[]) => {
 
 }
 
-export const getGame = async (id: string) => {
+export const postSearchByRating = async (ratings :number[]) => {
+    const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-rating'
+    const data = { "ratings" : ratings};
+
+    const response = await axios.post(apiUrl, data);
+    const gameList : GameListType = response.data;
+    return gameList.games;
+
+}
+
+export const postGameById = async (id: string) => {
     const apiUrl = "https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-id"
     const data = {"id" : id}
 
