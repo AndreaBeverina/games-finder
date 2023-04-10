@@ -1,5 +1,5 @@
 import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, VStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { postSearchByTitle, postSearchByGenre, postSearchByRating, getCoverArt } from "../../chiamate/chiamate";
 import genresList from "../../db/genres.json";
 import logoImg from "../../img/logo2.png";
@@ -20,24 +20,10 @@ export const SearchBar = () => {
   const [sliderMinValue, setSliderMinValue] = useState(0);
   const [sliderMaxValue, setSliderMaxValue] = useState(5);
 
-
+  const ref = useRef(null);
 
   const handleChangeUrl = (e) => {
     setGameTitle(e.target.value);
-  }
-
-  const handleClickSubmit = async () => {
-    setIsLoading(true);
-    try {
-      const data = await postSearchByTitle(gameTitle);
-      console.log(data)
-      setResult(data);
-      setIsLoading(false);
-    }
-    catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
   }
 
   const handleClickPopupTitle = () => {
@@ -62,6 +48,8 @@ export const SearchBar = () => {
     setGameTitle("");
   }
 
+  
+
   const handleChangeGenre = (event) => {
     const list = [...chosenGenres];
     const genre = event.target.value;
@@ -81,6 +69,21 @@ export const SearchBar = () => {
     }
   }
 
+  const handleClickSubmit = async () => {
+    setIsLoading(true);
+    try {
+      const data = await postSearchByTitle(gameTitle);
+      console.log(data)
+      setResult(data);
+      setIsLoading(false);
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+    catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
   const handleSubmitGenres = async () => {
     setIsLoading(true);
     setGameTitle("");
@@ -88,6 +91,7 @@ export const SearchBar = () => {
       const data = await postSearchByGenre(chosenGenres);
       setResult(data);
       setIsLoading(false);
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
     catch (error) {
       console.log(error);
@@ -105,6 +109,7 @@ export const SearchBar = () => {
       const data = await postSearchByRating(ratings);
       setResult(data);
       setIsLoading(false);
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
     catch (error) {
       console.log(error);
@@ -320,12 +325,10 @@ export const SearchBar = () => {
             </HStack>
 
 
-
-
           </VStack>
 
 
-          <Box width="100%">
+          <Box width="100%" ref={ref}>
             {!isLoading && result && (
               <>
                 {result.length == 0

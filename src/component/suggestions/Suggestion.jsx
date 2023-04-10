@@ -19,8 +19,10 @@ export const Suggestions = (props) => {
                                 <Link onClick={() => { window.location.href = `/details/${element.id}` }} >
                                     <Image
                                         h="15rem"
-                                        maxW="auto"
-                                        src={missingArtwork}
+                                        w="auto"
+                                        maxW="11rem"
+                                        fit="cover"
+                                        src={element.url !== "" ? element.url : missingArtwork}
                                         transitionDuration=".3s"
                                         _hover={{
                                             transform: "scale(1.04)",

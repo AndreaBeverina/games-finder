@@ -43,10 +43,10 @@ export const DetailsPage = () => {
                 <VStack spacing="2rem" fontFamily="Futura PT">
                     <Card direction="row">
                         <Image
-                            src={missingArtwork}
-                            objectFit='contain'
+                            src={game.url !== "" ? game.url : missingArtwork}
+                            objectFit='cover'
                             minH="20rem"
-                            maxW="auto"
+                            maxW="25rem"
                             h="35rem" />
 
                         <VStack maxW="45rem" pr="2rem">
