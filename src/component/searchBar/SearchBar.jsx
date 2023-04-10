@@ -1,12 +1,11 @@
 import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { postSearchByTitle, postSearchByGenre, postSearchByRating } from "../../chiamate/chiamate";
+import { postSearchByTitle, postSearchByGenre, postSearchByRating, getCoverArt } from "../../chiamate/chiamate";
 import genresList from "../../db/genres.json";
-import logoImg from "../../img/logo.png";
+import logoImg from "../../img/logo2.png";
 import { ResultDisplay } from "../resultDisplay/ResultDisplay";
 
 export const SearchBar = () => {
-
 
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState();
@@ -18,8 +17,6 @@ export const SearchBar = () => {
   const [chosenGenres, setChosenGenres] = useState([]);
 
   const [popupRating, setPopupRating] = useState(false);
-  const [chosenRatings, setChosenRatings] = useState([]);
-
   const [sliderMinValue, setSliderMinValue] = useState(0);
   const [sliderMaxValue, setSliderMaxValue] = useState(5);
 
@@ -33,6 +30,7 @@ export const SearchBar = () => {
     setIsLoading(true);
     try {
       const data = await postSearchByTitle(gameTitle);
+      console.log(data)
       setResult(data);
       setIsLoading(false);
     }
@@ -75,7 +73,6 @@ export const SearchBar = () => {
       list.push(genre);
     }
     setChosenGenres(list);
-    console.log(list)
   }
 
   const handleKeyPress = async (event) => {
@@ -119,8 +116,8 @@ export const SearchBar = () => {
     <>
       <Center marginTop="2rem">
         <VStack width="100%" fontFamily="Futura PT">
-          <Image src={logoImg} mb="2rem" />
-          <VStack width={{ sm: "70%", md: "50%", lg: "60%" }} h="30%">
+          <Image src={logoImg} mb="2rem" w="25rem" />
+          <VStack width={{ sm: "80%", md: "70%", lg: "60%" }} h="30%">
 
             <Center
               display={`${popupTitle ? "flex" : "none"}`}
@@ -129,12 +126,13 @@ export const SearchBar = () => {
             >
               <HStack spacing="1rem">
                 <Input
+                  bg="#03030332"
                   minWidth="35rem"
                   fontSize="1.5rem"
                   onChange={(e) => handleChangeUrl(e)}
                   onKeyDown={handleKeyPress}
                   type="text"
-                  borderColor="#ff9923"
+                  border="2px solid var(--appBlue)"
                   rounded="lg"
                   placeholder="Inserisci il titolo di un videogioco"
                   value={gameTitle}
@@ -165,8 +163,8 @@ export const SearchBar = () => {
               <SimpleGrid
                 columns={1}
                 height="auto"
-                backgroundColor="transparent"
-                border="2px solid #b400df"
+                backgroundColor="#03030332"
+                border="2px solid var(--appPurple)"
                 borderRadius="1rem"
                 mb="1rem">
 
@@ -201,7 +199,7 @@ export const SearchBar = () => {
                         </SliderMark>
                         <SliderTrack bg='black'>
                           <Box position='relative' right={10} />
-                          <SliderFilledTrack bg='#ff9923' />
+                          <SliderFilledTrack bg='var(--appOrange)' />
                         </SliderTrack>
                         <SliderThumb boxSize={5} />
                       </Slider>
@@ -248,12 +246,12 @@ export const SearchBar = () => {
 
 
                 <Box textAlign="center" p="1rem">
-                  <Button 
-                  variant="main" 
-                  onClick={handleSubmitRatings}
-                  isDisabled={ (sliderMinValue>sliderMaxValue) ? true : false}>
+                  <Button
+                    variant="main"
+                    onClick={handleSubmitRatings}
+                    isDisabled={(sliderMinValue > sliderMaxValue) ? true : false}>
                     Cerca
-                    </Button>
+                  </Button>
                 </Box>
 
               </SimpleGrid>
@@ -266,8 +264,8 @@ export const SearchBar = () => {
               <SimpleGrid
                 columns={1}
                 height="auto"
-                backgroundColor="transparent"
-                border="2px solid #f30c7c"
+                backgroundColor="#03030332"
+                border="2px solid var(--appMagenta)"
                 borderRadius="1rem"
                 mb="1rem">
 
@@ -301,7 +299,7 @@ export const SearchBar = () => {
             <HStack>
               <Button
                 onClick={handleClickPopupTitle}
-                variant="main"
+                variant="titleBtn"
               >
                 Ricerca per titolo
               </Button>

@@ -7,4 +7,5 @@ export type GameType = {
     summary : string,
     team : string[],
     title: string,
+    url: string
 }

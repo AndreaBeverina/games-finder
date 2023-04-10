@@ -1,7 +1,6 @@
 import axios from "axios";
-import fakeDB from "../db/fakeDB.json"
-import { GameType } from "../model/GameType";
 import { GameListType } from "../model/GameListType";
+import { GameType } from "../model/GameType";
 
 
 
@@ -9,72 +8,76 @@ import { GameListType } from "../model/GameListType";
 export const postSearchByTitle = async (titolo: string) => {
     const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/games-wiki-resource'
     const data = { "title": titolo };
-
+    
     const response = await axios.post(apiUrl, data);
-    const gameList : GameListType = response.data;
+    const gameList: GameListType = response.data;
+
+    gameList.games.map(async (element) => {
+        element.url = await getCoverArt("")        
+    })
     return gameList.games;
 }
 
-export const postSearchByGenre = async (genresList : string[]) => {
+export const postSearchByGenre = async (genresList: string[]) => {
     const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-genres'
-    const data = { "genres" : genresList};
+    const data = { "genres": genresList };
 
     const response = await axios.post(apiUrl, data);
-    const gameList : GameListType = response.data;
+    const gameList: GameListType = response.data;
     return gameList.games;
 
 }
 
-export const postSearchByRating = async (ratings :number[]) => {
+export const postSearchByRating = async (ratings: number[]) => {
     const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-rating'
-    const data = { "ratings" : ratings};
+    const data = { "ratings": ratings };
 
     const response = await axios.post(apiUrl, data);
-    const gameList : GameListType = response.data;
+    const gameList: GameListType = response.data;
     return gameList.games;
 
 }
 
 export const postGameById = async (id: string) => {
-    const apiUrl = "https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-id"
-    const data = {"id" : id}
+    const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/search-by-id'
+    const data = { "id": id }
 
     const response = await axios.post(apiUrl, data);
-    const game : GameType = response.data.game;
+    const game: GameType = response.data.game;
     return game;
 }
 
-export const getSuggestions = async (game: GameType) => {
-    //TODO: fare il metodo per bene
-    //await timeout(1000);
-    //const gameList: GameType[] = fakeDB.games;
-    //return gameList;
+export const postSuggestions = async (game: GameType) => {
+    const apiUrl = 'https://dk8far7kja.execute-api.us-east-1.amazonaws.com/prod-fase2/recommendations'
+    const data = {
+        "title": game.title,
+        "genres": game.genres,
+        "team": game.team
+    }
 
-    return null
+    console.log(data)
+    const response = await axios.post(apiUrl, data);
+    console.log(response.data)
+    const suggestedGames: GameType[] = response.data.games;
+    return suggestedGames;
 }
 
 ///////////////////////
 
+const apiKey = "d895745fcec943bf99a823bca0680765";
+
 export const getCoverArt = async (title: string) => {
-    const gamesDBUrlGame = "https://api.igdb.com/v4/games/";
-    const gamesDBUrlCover = "https://api.igdb.com/v4/covers";
+    /*
+    const urlExtApi = `https://api.rawg.io/api/games/grand-theft-auto-iv?key=${apiKey}`;
 
-    const headers= {
-        "Client-ID" : "uz7zklv9aphrjfyxd9gmbnznathe2f",
-        "Authorization" : "Bearer yrxwqgtqu6gv8gx3ainqk6kw7s6elg",
-        "Access-Control-Allow-Origin" : "*"
-    }
-
-    const data1 = "fields name; limit 1; search \"" + title + "\"";
-    const response1 = await axios.post(gamesDBUrlGame, data1, {headers});
-    const gameId = response1.data.id;
-    console.log(gameId);
-
-    const data2 = "fields *; where game = \""+ gameId +"\"";
-    const response2 = await axios.post(gamesDBUrlCover, data2, {headers});
-    const gameCover = response2.data.url;
+    const response2 = await axios.get(urlExtApi);
+    const gameCover = response2.data.background_image;
     console.log(gameCover);
-    
+
+    return gameCover
+    */
+
+return "https://media.rawg.io/media/games/4a0/4a0a1316102366260e6f38fd2a9cfdce.jpg"
 }
 
 

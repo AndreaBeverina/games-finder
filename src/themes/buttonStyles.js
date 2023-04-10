@@ -24,6 +24,17 @@ export const ButtonStyles = {
           color: "#ff9923",
         }
       }),
+      titleBtn: (props) => ({
+        bg: "var(--appBlue)",
+        _hover: {
+          bg: "white",
+          color: "var(--appBlue)",
+        },
+        _active: {
+          bg: "#dfdfdf",
+          color: "var(--appBlue)",
+        }
+      }),
       clearBtn: (props) => ({
         bg: "red",
         padding:"0 2rem",

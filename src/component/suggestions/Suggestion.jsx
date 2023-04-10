@@ -1,12 +1,13 @@
 import { Center, Text, VStack, HStack, Image, Box, SimpleGrid } from "@chakra-ui/react";
 import { Rating, ThemeProvider, createTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import missingArtwork from "../../img/missingArtwork4.png"
 
 const theme = createTheme();
 
 export const Suggestions = (props) => {
     const suggestionsList = props.list;
-
+    
     return (
         <Center>
             <SimpleGrid columns={{ sm: 3, md: 4, lg: 5 }} spacing="1.5rem">
@@ -19,7 +20,7 @@ export const Suggestions = (props) => {
                                     <Image
                                         h="15rem"
                                         maxW="auto"
-                                        src={element.imageUrl}
+                                        src={missingArtwork}
                                         transitionDuration=".3s"
                                         _hover={{
                                             transform: "scale(1.04)",

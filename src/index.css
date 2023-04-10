@@ -21,3 +21,10 @@ html{
   background-position: center;
   background-attachment: fixed;
 }
+
+:root{
+  --appMagenta: #F30C7C;
+  --appBlue: #4666FF;
+  --appPurple: #B400DF;
+  --appOrange: #FF9923;
+}

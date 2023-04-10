@@ -1,10 +1,10 @@
 import { Box, Button, Card, CardBody, Center, HStack, Heading, Image, Text, VStack, Stack, Skeleton, Input, SkeletonText } from "@chakra-ui/react";
 import { Rating, ThemeProvider, createTheme } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
-import { postGameById, getSuggestions } from "../../chiamate/chiamate";
+import { postGameById, postSuggestions } from "../../chiamate/chiamate";
 import { useRef, useState } from "react";
 import { Suggestions } from "../suggestions/Suggestion";
-import missingArtwork from "../../img/missingArtwork3.png"
+import missingArtwork from "../../img/missingArtwork4.png"
 
 const theme = createTheme();
 
@@ -12,6 +12,7 @@ export const loader = async ({ params }) => {
     const game = await postGameById(params.id);
     return { game };
 }
+
 
 
 export const DetailsPage = () => {
@@ -22,10 +23,10 @@ export const DetailsPage = () => {
 
     const ref = useRef(null);
 
-    const handleClickSubmit = async (e) => {
+    const handleClickSubmit = async () => {
         setIsLoading(true);
         try {
-            const data = await getSuggestions(e.target.value);
+            const data = await postSuggestions(game);
             setResult(data);
             setIsLoading(false);
             ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -50,29 +51,56 @@ export const DetailsPage = () => {
 
                         <VStack maxW="45rem" pr="2rem">
                             <CardBody>
-                                <Heading fontSize="3rem" as="b" color="#ff9f00">{game.title}</Heading>
+                                <Heading fontSize="3rem" as="b" color="var(--appOrange)">{game.title}</Heading>
 
                                 <Box py="1rem">
-                                    <Text fontSize="1.6rem" as="b" color="#ff9f00">Genere</Text>
+                                    <Text fontSize="1.5rem" as="b" color="var(--appMagenta)">Genere</Text>
                                     <HStack spacing="1rem">
                                         {
                                             game.genres.map((element, index) => {
                                                 return (
                                                     <Text key={index}
-                                                    border="1px solid orange"
-                                                    borderRadius="0.5rem"
-                                                    padding="0.2rem 0.5rem"> {element} </Text>
+                                                        border="2px solid var(--appMagenta)"
+                                                        borderRadius="0.5rem"
+                                                        padding="0.2rem 0.5rem"> {element} </Text>
                                                 )
                                             })
                                         }
                                     </HStack>
                                 </Box>
 
-                                <Text as="b" fontSize="1.6rem" color="#ff9f00">Trama</Text>
-                                <br />
-                                <Text pb="1rem" fontSize="1.2rem">{game.summary}</Text>
+                                <Box>
+                                    <HStack>
 
-                                <Text fontSize="1.6rem" as="b" color="#ff9f00" >Valutazione</Text>
+                                        <Stack direction={['column']} textAlign="left" marginRight="2rem">
+                                            <Text as="b" fontSize="1.5rem" color="var(--appPurple)">Data di uscita</Text>
+                                            <Text pb="1rem" fontSize="1.1rem" mt="0 !important">{game.release_date}</Text>
+                                        </Stack>
+                                        <Stack direction={['column']} textAlign="left">
+                                            <Text as="b" fontSize="1.5rem" color="var(--appPurple)">Creato da</Text>
+                                            <HStack>
+                                                {
+                                                    game.team.map((element, index) => {
+                                                        return (
+                                                            <Text pb="1rem" fontSize="1.1rem" mt="0 !important" key={index}>{element}{
+                                                                (index + 1 < game.team.length) ? <span>,</span> : <span display="none"></span>
+                                                            }</Text>
+                                                        )
+
+                                                    })
+                                                }
+                                            </HStack>
+
+                                        </Stack>
+                                    </HStack>
+                                </Box>
+
+
+                                <Text as="b" fontSize="1.5rem" color="var(--appPurple)">Trama</Text>
+                                <br />
+                                <Text pb="1rem" fontSize="1.1rem">{game.summary}</Text>
+
+                                <Text fontSize="1.6rem" as="b" color="var(--appBlue)" >Valutazione</Text>
                                 <Box>
                                     <ThemeProvider theme={theme}>
                                         <Rating
@@ -130,12 +158,12 @@ export const DetailsPage = () => {
                                         <SkeletonText noOfLines={1} skeletonHeight="1rem" w="11.2rem" />
                                         <SkeletonText noOfLines={1} skeletonHeight="0.8rem" w="11.2rem" />
                                     </VStack>
-                                    <VStack display={{ sm: "none", md: "flex"}}>
+                                    <VStack display={{ sm: "none", md: "flex" }}>
                                         <Skeleton h="15rem" w="11.2rem" />
                                         <SkeletonText noOfLines={1} skeletonHeight="1rem" w="11.2rem" />
                                         <SkeletonText noOfLines={1} skeletonHeight="0.8rem" w="11.2rem" />
                                     </VStack>
-                                    <VStack display={{ sm: "none", md: "none", lg:"flex"}}>
+                                    <VStack display={{ sm: "none", md: "none", lg: "flex" }}>
                                         <Skeleton h="15rem" w="11.2rem" />
                                         <SkeletonText noOfLines={1} skeletonHeight="1rem" w="11.2rem" />
                                         <SkeletonText noOfLines={1} skeletonHeight="0.8rem" w="11.2rem" />
