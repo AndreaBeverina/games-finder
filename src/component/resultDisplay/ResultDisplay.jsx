@@ -16,20 +16,16 @@ export const ResultDisplay = (props) => {
             return (
               <VStack align="left" key={index}>
                 <Link to={`details/${element.id}`}>
-                  {element.url != "" && (
-
-                    <Image
-                    h="15rem"
-                    w="auto"
-                    maxW="12rem"
-                    src={element.url}
-                    alt=""
-                    transitionDuration=".3s"
-                    _hover={{
-                      transform: "scale(1.04)",
-                    }} />
-                  )}
-                  
+                  <Image
+                  h="15rem"
+                  w="auto"
+                  maxW="12rem"
+                  src={element.url!==""?element.url:missingArtwork}
+                  alt=""
+                  transitionDuration=".3s"
+                  _hover={{
+                    transform: "scale(1.04)",
+                  }} />
                 </Link>
 
                 <Box maxW="10rem">
