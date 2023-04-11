@@ -28,3 +28,25 @@ html{
   --appPurple: #B400DF;
   --appOrange: #FF9923;
 }
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(35, 35, 35); 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgb(140, 140, 140);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(92, 92, 92); 
+}
+
+::-webkit-scrollbar-thumb:active{
+  background: rgb(79, 79, 79); 
+}

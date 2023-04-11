@@ -1,6 +1,6 @@
 import { Box, Button, Center, Checkbox, HStack, Image, Input, SimpleGrid, Skeleton, SkeletonText, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, VStack } from "@chakra-ui/react";
-import { useState, useRef } from "react";
-import { postSearchByTitle, postSearchByGenre, postSearchByRating, getCoverArt } from "../../chiamate/chiamate";
+import { useRef, useState } from "react";
+import { postSearchByGenre, postSearchByRating, postSearchByTitle } from "../../chiamate/chiamate";
 import genresList from "../../db/genres.json";
 import logoImg from "../../img/logo2.png";
 import { ResultDisplay } from "../resultDisplay/ResultDisplay";
@@ -64,7 +64,7 @@ export const SearchBar = () => {
   }
 
   const handleKeyPress = async (event) => {
-    if (event.key == "Enter" && gameTitle.length > 0) {
+    if (event.key === "Enter" && gameTitle.length > 0) {
       handleClickSubmit();
     }
   }
@@ -373,7 +373,3 @@ export const SearchBar = () => {
     </>
   )
 }
-
-/**
- * <HStack mt="2rem" w="15rem" spacing="2rem" justifyContent="center" m="3rem auto 0">
- */
