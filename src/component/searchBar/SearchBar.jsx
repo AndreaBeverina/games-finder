@@ -331,7 +331,7 @@ export const SearchBar = () => {
           <Box width="100%" ref={ref}>
             {!isLoading && result && (
               <>
-                {result.length == 0
+                {result.length === 0
                   ? <Center mt="2rem" fontSize="2rem"> Non è stato trovato alcun videogioco. Prova a cambiare i parametri di ricerca! </Center>
                   : <ResultDisplay gameList={result} />}
               </>
