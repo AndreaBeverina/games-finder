@@ -12,11 +12,11 @@ const baseStyle = definePartsStyle({
 
   control: {
     borderRadius: 0,
-    borderColor: "var(--appOrange)",
+    borderColor: "var(--appMagenta)",
 
     _checked: {
-      border: "2px solid var(--appOrange)",
-      bg: "var(--appOrange)",
+      border: "2px solid var(--appMagenta)",
+      bg: "var(--appMagenta)",
       color: "black"
     }
   },
@@ -30,7 +30,7 @@ const baseStyle = definePartsStyle({
       border: "2px solid white",
     },
     _checked: {
-      border: "2px solid var(--appOrange)",
+      border: "2px solid var(--appMagenta)",
     }
   }
 })

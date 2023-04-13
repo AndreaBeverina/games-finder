@@ -204,7 +204,7 @@ export const SearchBar = () => {
                         </SliderMark>
                         <SliderTrack bg='black'>
                           <Box position='relative' right={10} />
-                          <SliderFilledTrack bg='var(--appOrange)' />
+                          <SliderFilledTrack bg='var(--appPurple)' />
                         </SliderTrack>
                         <SliderThumb boxSize={5} />
                       </Slider>
@@ -240,7 +240,7 @@ export const SearchBar = () => {
                         </SliderMark>
                         <SliderTrack bg='black'>
                           <Box position='relative' right={10} />
-                          <SliderFilledTrack bg='#ff9923' />
+                          <SliderFilledTrack bg='var(--appPurple)' />
                         </SliderTrack>
                         <SliderThumb boxSize={5} />
                       </Slider>
