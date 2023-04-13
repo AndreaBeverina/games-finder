@@ -303,6 +303,7 @@ export const SearchBar = () => {
 
             <HStack>
               <Button
+                isDisabled={popupTitle}
                 onClick={handleClickPopupTitle}
                 variant="titleBtn"
               >
@@ -310,6 +311,7 @@ export const SearchBar = () => {
               </Button>
 
               <Button
+                isDisabled={popupRating}
                 onClick={handleClickPopupRating}
                 variant="ratingBtn"
               >
@@ -317,6 +319,7 @@ export const SearchBar = () => {
               </Button>
 
               <Button
+                isDisabled={popupGenre}
                 onClick={handleClickPopupGenre}
                 variant="genreBtn"
               >
